@@ -41,7 +41,7 @@ async.retry(
 );
 
 function getVotes(client) {
-  client.query('SELECT manhatan, vote, COUNT(id) AS count FROM votes GROUP BY manhatan, vote;', [], function(err, result) {
+  client.query('SELECT * FROM votes ORDER BY date DESC LIMIT 1;', [], function(err, result) {
     if (err) {
       console.error("Error performing query: " + err);
     } else {
@@ -54,13 +54,16 @@ function getVotes(client) {
 }
 
 function collectVotesFromResult(result) {
-  var votes = {a: 0, b: 0, manhatanA: null, manhatanB: null};
+  var votes = {user1: null, user2:null, option: null, result: null}
+  var votes2 = {a: 0, b: 0, manhatanA: null, manhatanB: null};
 
   result.rows.forEach(function (row) {
-    votes[row.vote] = parseInt(row.count);
-    votes['manhatan' + row.vote.toUpperCase()] = row.manhatan !== null ? row.manhatan : '0';
+    votes['user1'] = row.user1;
+    votes['user2'] = row.user2;
+    votes['option'] = row.option;
+    votes['result'] = row.result;
   });
-
+  //console.log(votes)
   return votes;
 }
 

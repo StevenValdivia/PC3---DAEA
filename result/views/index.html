@@ -1,43 +1,30 @@
 <!DOCTYPE html>
 <html ng-app="catsvsdogs">
-  <head>
-    <meta charset="utf-8">
-    <title>Cats vs Dogs -- Result</title>
-    <base href="/index.html">
-    <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
-    <meta name="keywords" content="docker-compose, docker, stack">
-    <meta name="author" content="Docker">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body ng-controller="statsCtrl" >
-     <div id="background-stats">
-       <div id="background-stats-1">
-       </div><!--
-      --><div id="background-stats-2">
+
+<head>
+  <meta charset="utf-8">
+  <title>Resultados</title>
+  <base href="/index.html">
+  <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+  <meta name="keywords" content="docker-compose, docker, stack">
+  <meta name="author" content="Docker">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body ng-controller="statsCtrl">
+  <div id="content-container">
+    <div id="content-container-center">
+      <div id="choice">
+        <div class="label">User1: {{user1}}</div>
+        <div class="label">User2: {{user2}}</div>
+        <div class="label">Option: {{option}}</div>
+        <div class="label">Result: {{result}}</div>
       </div>
     </div>
-    <div id="content-container">
-      <div id="content-container-center">
-        <div id="choice">
-          <div class="choice cats">
-            <div class="label">Angelica</div>
-            <div class="manhatan">Manhatan: {{manhatanA}}</div>
-          </div>
-          <div class="divider"></div>
-          <div class="choice dogs">
-            <div class="label">Chan</div>
-            <div class="manhatan">Manhatan: {{manhatanB}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="result">
-      <span ng-if="total == 0">No votes yet</span>
-      <span ng-if="total == 1">{{total}} vote</span>
-      <span ng-if="total >= 2">{{total}} votes</span>
-    </div>
-    <script src="socket.io.js"></script>
-    <script src="angular.min.js"></script>
-    <script src="app.js"></script>
-  </body>
+  </div>
+  <script src="socket.io.js"></script>
+  <script src="angular.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
 </html>

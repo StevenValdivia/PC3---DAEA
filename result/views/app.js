@@ -5,28 +5,20 @@ var bg1 = document.getElementById('background-stats-1');
 var bg2 = document.getElementById('background-stats-2');
 
 app.controller('statsCtrl', function($scope){
-  $scope.aPercent = 50;
-  $scope.bPercent = 50;
-
+  
   var updateScores = function(){
     socket.on('scores', function (json) {
        data = JSON.parse(json);
-       var a = parseInt(data.a || 0);
-       var b = parseInt(data.b || 0);
-       var manhatanA = data.manhatanA;
-       var manhatanB = data.manhatanB;
-
-       var percentages = getPercentages(a, b);
-
-       bg1.style.width = percentages.a + "%";
-       bg2.style.width = percentages.b + "%";
+       var user1 = data.user1
+       var user2 = data.user2
+       var option = data.option
+       var result = data.result
 
        $scope.$apply(function () {
-         $scope.aPercent = percentages.a;
-         $scope.bPercent = percentages.b;
-         $scope.total = a + b;
-         $scope.manhatanA = manhatanA;
-         $scope.manhatanB = manhatanB;
+         $scope.user1 = user1;
+         $scope.user2 = user2;
+         $scope.option = option;
+         $scope.result = result;
        });
     });
   };
@@ -39,16 +31,3 @@ app.controller('statsCtrl', function($scope){
     init();
   });
 });
-
-function getPercentages(a, b) {
-  var result = {};
-
-  if (a + b > 0) {
-    result.a = Math.round(a / (a + b) * 100);
-    result.b = 100 - result.a;
-  } else {
-    result.a = result.b = 50;
-  }
-
-  return result;
-}

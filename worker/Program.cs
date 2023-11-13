@@ -25,7 +25,8 @@ namespace Worker
                 var keepAliveCommand = pgsql.CreateCommand();
                 keepAliveCommand.CommandText = "SELECT 1";
 
-                var definition = new { vote = "", voter_id = "", manhatan="" };
+                var definition = new {voter_id = "", user1="", user2="", option="", result=""};
+
                 while (true)
                 {
                     // Slow down to prevent CPU spike, only query each 100ms
@@ -41,7 +42,7 @@ namespace Worker
                     if (json != null)
                     {
                         var vote = JsonConvert.DeserializeAnonymousType(json, definition);
-                        Console.WriteLine($"Processing vote for '{vote.vote}' by '{vote.voter_id}' mahatan is'{vote.manhatan}'");
+                        Console.WriteLine($"Processing vote for '{vote.voter_id}' Opcion is'{vote.result}'");
                         // Reconnect DB if down
                         if (!pgsql.State.Equals(System.Data.ConnectionState.Open))
                         {
@@ -50,7 +51,7 @@ namespace Worker
                         }
                         else
                         { // Normal +1 vote requested
-                            UpdateVote(pgsql, vote.voter_id, vote.vote, vote.manhatan);
+                            UpdateVote(pgsql, vote.voter_id, vote.user1, vote.user2, vote.option, vote.result);
                         }
                     }
                     else
@@ -95,8 +96,11 @@ namespace Worker
             var command = connection.CreateCommand();
             command.CommandText = @"CREATE TABLE IF NOT EXISTS votes (
                                         id VARCHAR(255) NOT NULL UNIQUE,
-                                        vote VARCHAR(255) NOT NULL,
-                                        manhatan VARCHAR(255) NOT NULL
+                                        user1 VARCHAR(255) NOT NULL,
+                                        user2 VARCHAR(255) NOT NULL,
+                                        option VARCHAR(255) NOT NULL,
+                                        result VARCHAR(255) NOT NULL,
+                                        date TIMESTAMP DEFAULT current_timestamp
                                     )";
             command.ExecuteNonQuery();
 
@@ -131,20 +135,22 @@ namespace Worker
                 .First(a => a.AddressFamily == AddressFamily.InterNetwork)
                 .ToString();
 
-        private static void UpdateVote(NpgsqlConnection connection, string voterId, string vote, string manhatan)
+        private static void UpdateVote(NpgsqlConnection connection, string voterId,string user1, string user2, string option, string result)
         {
             var command = connection.CreateCommand();
             try
             {
-                command.CommandText = "INSERT INTO votes (id, vote,manhatan) VALUES (@id, @vote, @manhatan)";
+                command.CommandText = "INSERT INTO votes (id, user1, user2, option, result) VALUES (@id, @user1, @user2, @option, @result)";
                 command.Parameters.AddWithValue("@id", voterId);
-                command.Parameters.AddWithValue("@vote", vote);
-                command.Parameters.AddWithValue("@manhatan", manhatan);
+                command.Parameters.AddWithValue("@user1", user1);
+                command.Parameters.AddWithValue("@user2", user2);
+                command.Parameters.AddWithValue("@option", option);
+                command.Parameters.AddWithValue("@result", result);
                 command.ExecuteNonQuery();
             }
             catch (DbException)
             {
-                command.CommandText = "UPDATE votes SET vote = @vote, manhatan = @manhatan WHERE id = @id";
+                command.CommandText = "UPDATE votes SET user1 = @user1, user2 = @user2, option = @option, result = @result WHERE id = @id";
                 command.ExecuteNonQuery();
             }
             finally
