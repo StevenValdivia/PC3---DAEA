@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Votos!</title>
+  <title>Votación!</title>
   <base href="/index.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="keywords" content="docker-compose, docker, stack">
@@ -11,22 +11,107 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel='stylesheet' href="{{ url_for('static',filename='stylesheets/style.css') }}" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    h3 {
+      color: #007bff;
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    #choice {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    select.form-control {
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      padding: 10px;
+      width: 100%;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    select.form-control:focus {
+      border-color: #007bff;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      padding: 10px 20px;
+      transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+
+    #tip {
+      color: #6c757d;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+  
 </head>
 
 <body>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-6">
-        <h3>Vote Joven!</h3>
+      <div class="col-md-15">
+        
         <form id="choice" name='form' method="POST" action="/">
           <div class="form-group">
-            <label for="user1">Usuario1:</label>
-            <input type="text" class="form-control" id="user1" name="user1">
+             <label for="user1">Usuario1:</label>
+            <select class="form-control" name="user1" id="user1">
+                <option value="Angelica">Angelica</option>
+                <option value="Bill">Bill</option>
+                <option value="Chan">Chan</option>
+                <option value="Dan">Dan</option>
+                <option value="Hailey">Hailey</option>
+                <option value="Jordym">Jordym</option>
+                <option value="Sam">Sam</option>
+                <option value="Veronica">Veronica</option>
+            </select>
           </div>
 
           <div class="form-group">
             <label for="user2">Usuario2:</label>
-            <input type="text" class="form-control" id="user2" name="user2">
+                <select class="form-control" name="user2" id="user2">
+                    <option value="Angelica">Angelica</option>
+                    <option value="Bill">Bill</option>
+                    <option value="Chan">Chan</option>
+                    <option value="Dan">Dan</option>
+                    <option value="Hailey">Hailey</option>
+                    <option value="Jordym">Jordym</option>
+                    <option value="Sam">Sam</option>
+                    <option value="Veronica">Veronica</option>
+                </select>
           </div>
 
           <div class="form-group">
@@ -41,7 +126,7 @@
           <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
         <div id="tip">
-          (Tip: you can change your vote)
+          (Tip: Seleccione según su gusto)
         </div>
         
       </div>
@@ -51,5 +136,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
+
 
 </html>

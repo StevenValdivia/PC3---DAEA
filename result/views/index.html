@@ -5,21 +5,52 @@
   <meta charset="utf-8">
   <title>Resultados</title>
   <base href="/index.html">
-  <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="keywords" content="docker-compose, docker, stack">
   <meta name="author" content="Docker">
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    #content-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #choice {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .label {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .detail {
+      font-weight: bold;
+      color: #007bff;
+    }
+  </style>
 </head>
 
 <body ng-controller="statsCtrl">
   <div id="content-container">
-    <div id="content-container-center">
-      <div id="choice">
-        <div class="label">User1: {{user1}}</div>
-        <div class="label">User2: {{user2}}</div>
-        <div class="label">Option: {{option}}</div>
-        <div class="label">Result: {{result}}</div>
-      </div>
+    <div id="choice">
+      <div class="label">Usuario 1: <span class="detail">{{user1}}</span></div>
+      <div class="label">Usuario 2: <span class="detail">{{user2}}</span></div>
+      <div class="label">Opción: <span class="detail">{{option}}</span></div>
+      <div class="label">Resultado: <span class="detail">{{result}}</span></div>
     </div>
   </div>
   <script src="socket.io.js"></script>
